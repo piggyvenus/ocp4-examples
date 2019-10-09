@@ -3,6 +3,8 @@
 * Launcher up
 * CRC is running
 * Close all other application
+* clean up git repo
+* delete application from integration cluster
 
 
 ## Laucher
@@ -45,11 +47,17 @@ code .
 * oc login -u user1 https://api.ocp4.home.ocpcloud.com:6443/
 * oc project quarkusbackend
 * cd /Users/shannachan/RHTE/pipeline
-* oc create -f ocp-objects.yaml
-* oc create -f s2i-nodejs-task.yaml
-* oc create -f pipeline-resources.yaml
-* oc create -f pipeline.yaml
+* create all my application object and pipeline objects
+```
+oc create -f ocp-objects.yaml
+oc create -f s2i-nodejs-task.yaml
+oc create -f pipeline-resources.yaml
+oc create -f pipeline.yaml
+tkn task list
+tkn resource list
+tkn pipeline list
+```
 * tkn pipeline start angularfrontend-deploy-pipeline -r app-git=angularfrontend-git -r app-image=angularfrontend-image -s pipeline
-* ***SWitch back to Veer***
 * tkn pipeline list
+* ***SWitch back to Veer***
 * go to http://angularfrontend-quarkusbackend.apps.ocp4.home.ocpcloud.com/
