@@ -60,8 +60,8 @@ Now, your CRC is up!
 ## Setup Application and start IDE (VSCODE)
  * Move the download zip from launcher
  * Extract the zip file
- * Change directory into the Extracted directory
- * Create github repo
+ * Change directory into the extracted directory
+ * Create github repo and commit project
  ```
  $ curl -u 'USER' https://api.github.com/user/repos -d '{"name":"rhtedemo5"}'
  $ git init
@@ -79,10 +79,13 @@ Now, your CRC is up!
  * Run: `crc console` to bring up the OpenShift console
 
 ## Modify the Frontend Application
- * cp ~/ocp4-examples/rhte2019/index.html
- * update src/app/app.component.html
- * Update src/app/app.component.ts
- * rebuild
+ * cd ~
+ * git clone https://github.com/piggyvenus/ocp4-examples.git
+ * cp ~/ocp4-examples/rhte2019/index.html src/
+ * cp ~/ocp4-examples/rhte2019/app.component.html src/app/
+ * Remove line `templateUrl: './app.component.html',` from src/app/app.component.ts
+ * Git commit via VSCODE
+ * Rebuild from the OpenShift Console
  * Test the route of the application via browser
 
 ## Create Pipeline in the Integrated Environment
