@@ -38,7 +38,7 @@ code .
 * Git commit via VSCODE
 * oc start-build angularfrontend
 * Run: crc console to bring up the OpenShift console --> checking build
-* <Switch to Veer>
+* ***SWitch back to Veer***
 * go the the frontend application http://angularfrontend-quarkusbackend.apps-crc.testing/
 
 ## Moving on to Integration
@@ -50,6 +50,6 @@ code .
 * oc create -f pipeline-resources.yaml
 * oc create -f pipeline.yaml
 * tkn pipeline start angularfrontend-deploy-pipeline -r app-git=angularfrontend-git -r app-image=angularfrontend-image -s pipeline
-* <SWitch back to Veer>
+* ***SWitch back to Veer***
 * tkn pipeline list
 * go to http://angularfrontend-quarkusbackend.apps.ocp4.home.ocpcloud.com/
