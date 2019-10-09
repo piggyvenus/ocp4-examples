@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Fruit Stocker Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
+    <style>
+        input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            -webkit-transition: .5s;
+            transition: .5s;
+            outline: 0;
+            font-family: 'Open Sans',serif;
+        }
+    </style>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.16/angular-resource.js"></script>
+    <script type="text/javascript">
+      //var svcurl = "";
+
+      var svcurl = "http://oceanic-lamp-welcome-oceanic-lamp.apps.cluster-6152.sandbox526.opentlc.com";
+      
+      var app = angular.module("FruitManagement", []);
+
+      app.config(function($httpProvider) {
+      //Enable cross domain calls
+      $httpProvider.defaults.useXDomain = true;
+
+      //Remove the header used to identify ajax call  that would prevent CORS from working
+      delete $httpProvider.defaults.headers.common['X-Requested-With'];
+      });
+
+      //Controller Part
+      app.controller("FruitManagementController", function ($scope, $http) {
+
+        //Initialize page with default data which is blank in this example
+        $scope.fruits = [];
+
+        $scope.form = {
+          id: -1,
+          name: "",
+          stock: 0
+        };
+
+        //Now load the data from server
+        _refreshPageData();
+
+        //HTTP POST/PUT methods for add/edit fruits
+        $scope.update = function () {
+          var method = "";
+          var url = "";
+          var data = {};
+
+          if ($scope.form.id == -1) {
+            //Id is absent so add fruits - POST operation
+            method = "POST";
+            //url = 'http://oceanic-lamp-welcome-oceanic-lamp.apps.cluster-6152.sandbox526.opentlc.com/backend/api/fruits';
+            url = svcurl + '/backend/api/fruits';
+            //url = '/backend/api/fruits';
+            data.name = $scope.form.name;
+            data.stock = $scope.form.stock;
+            console.log(url);
+
+          } else {
+            //If Id is present, it's edit operation - PUT operation
+            method = "PUT";
+            //url = 'http://oceanic-lamp-welcome-oceanic-lamp.apps.cluster-6152.sandbox526.opentlc.com/backend/api/fruits/' + $scope.form.id;
+            url = svcurl + '/backend/api/fruits/' + $scope.form.id;
+            //url = '/backend/api/fruits/' + $scope.form.id;
+            data.name = $scope.form.name;
+            data.stock = $scope.form.stock;
+            console.log(url);
+          }
+
+          $http({
+            method: method,
+            url: url,
+            data: angular.toJson(data),
+            headers : {'Content-Type':'application/json'}
+          }).then( _success, _error );
+
+        };
+
+        //HTTP DELETE- delete fruit by id
+        $scope.remove = function (fruit) {
+          $http({
+            method: 'DELETE',
+            //url: 'http://oceanic-lamp-welcome-oceanic-lamp.apps.cluster-6152.sandbox526.opentlc.com/backend/api/fruits/' + fruit.id
+            url: svcurl + '/backend/api/fruits/' + fruit.id
+            //url: '/backend/api/fruits/' + fruit.id
+          }).then( _success, _error );
+          //console.log(env.apiUrl);
+        };
+
+        //In case of edit fruits, populate form with fruit data
+        $scope.edit = function (fruit) {
+          $scope.form.name = fruit.name;
+          $scope.form.stock = parseInt(fruit.stock);
+          $scope.form.id = fruit.id;
+        };
+
+          /* Private Methods */
+        //HTTP GET- get all fruits collection
+        function _refreshPageData() {
+          //console.log(env.apiUrl);
+          $http({
+            method: 'GET',
+            //url: 'http://oceanic-lamp-welcome-oceanic-lamp.apps.cluster-6152.sandbox526.opentlc.com/backend/api/fruits',
+            url: svcurl + '/backend/api/fruits',
+            //url: '/backend/api/fruits',
+          }).then(function successCallback(response) {
+            $scope.fruits = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
+          });
+
+        }
+
+        function _success(response) {
+          _refreshPageData();
+          _clearForm()
+        }
+
+        function _error(response) {
+          alert(response.data.message || response.statusText);
+        }
+
+        //Clear the form
+        function _clearForm() {
+          $scope.form.name = "";
+          $scope.form.stock = 0;
+          $scope.form.id = -1;
+        }
+      });
+    </script>
+</head>
+<body ng-app="FruitManagement" ng-controller="FruitManagementController">
+<div class="container">
+    <h1>Fruit Stock Management</h1>
+    <p>
+        This application demonstrates how a Spring Boot application implements a CRUD endpoint to manage <em>fruits</em>.
+        This management interface invokes the CRUD service endpoint, that interact with a ${db.name} database using JDBC.
+    </p>
+
+    <h3>Add/Edit a fruits</h3>
+
+    <form ng-submit="update()">
+        <div class="row">
+            <div class="col-6"><input type="text" placeholder="Name" ng-model="form.name" size="60"/></div>
+            <div class="col-6"><input type="number" placeholder="Stock" ng-model="form.stock" size="60" min="0"/></div>
+        </div>
+        <input type="submit" value="Sumit"/>
+    </form>
+
+    <h3>Fruit List</h3>
+
+    <div class="row">
+        <div class="col-2">Name</div>
+    <div class="col-2">Stock</div>
+    </div>
+    <div class="row" ng-repeat="fruit in fruits">
+        <div class="col-2">{{ fruit.name }}</div>
+        <div class="col-2">{{ fruit.stock }}</div>
+        <div class="col-8"><a ng-click="edit( fruit )" class="btn">Edit</a> <a ng-click="remove( fruit )" class="btn">Remove</a></div>
+    </div>
+</div>
+
+</body>
+</html>
