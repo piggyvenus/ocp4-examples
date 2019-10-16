@@ -59,5 +59,6 @@ tkn pipeline list
 ```
 * tkn pipeline start angularfrontend-deploy-pipeline -r app-git=angularfrontend-git -r app-image=angularfrontend-image -s pipeline
 * tkn pipeline list
+* https://devconsole.apps.ocp4.home.ocpcloud.com/topology/ns/quarkusbackend
 * ***SWitch back to Veer***
 * go to http://angularfrontend-quarkusbackend.apps.ocp4.home.ocpcloud.com/
