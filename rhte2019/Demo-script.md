@@ -2,6 +2,7 @@
 ##Preparation
 * Launcher up
 * CRC is running
+* crc console
 * Close all other application
 * clean up git repo
 * delete application from integration cluster
