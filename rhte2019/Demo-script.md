@@ -42,7 +42,7 @@ code .
 * go the the frontend application http://angularfrontend-quarkusbackend.apps-crc.testing/
 
 ## Moving on to Integration
-* oc login -u user1 https://api.ocp4.home.ocpcloud.com:6443/
+* oc login -u user1 https://api.ocp4.home.ocpcloud.com:6443/ or oc login -u user1 https://api.rhte2019.sc.osecloud.com:6443
 * oc project quarkusbackend
 * cd /Users/shannachan/RHTE/pipeline
 * create all my application object and pipeline objects
