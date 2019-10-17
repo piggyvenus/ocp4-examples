@@ -30,12 +30,12 @@ code .
 
 ## Modify the Frontend Application
 * In the VSCODE, Go to Terminal -> New Terminal
-* In the terminal, enter oc login -u developer -p developer https://api.crc.testing:6443
-* Run: oc new-project quarkusbackend
 * cp ~/ocp4-examples/rhte2019/index.html src/
 * cp ~/ocp4-examples/rhte2019/app.component.html src/app/
 * Remove line templateUrl: './app.component.html', from src/app/app.component.ts
 * Git commit via VSCODE
+* In the terminal, enter oc login -u developer -p developer https://api.crc.testing:6443
+* Run: oc new-project quarkusbackend
 * Run: ./gap deploy
 * Run: crc console to bring up the OpenShift console --> checking build
 * ***SWitch back to Veer***
