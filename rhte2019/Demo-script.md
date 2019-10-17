@@ -32,14 +32,11 @@ code .
 * In the VSCODE, Go to Terminal -> New Terminal
 * In the terminal, enter oc login -u developer -p developer https://api.crc.testing:6443
 * Run: oc new-project quarkusbackend
-* Run: ./gap deploy
-* Run: oc cancel-build bc/angularfrontend
-* Run: oc cancel-build bc/angularfrontend-welcome
 * cp ~/ocp4-examples/rhte2019/index.html src/
 * cp ~/ocp4-examples/rhte2019/app.component.html src/app/
 * Remove line templateUrl: './app.component.html', from src/app/app.component.ts
 * Git commit via VSCODE
-* oc start-build angularfrontend
+* Run: ./gap deploy
 * Run: crc console to bring up the OpenShift console --> checking build
 * ***SWitch back to Veer***
 * go the the frontend application http://angularfrontend-quarkusbackend.apps-crc.testing/
