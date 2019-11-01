@@ -2,6 +2,7 @@
 ##Preparation
 * Launcher up
 * CRC is running
+* crc console
 * Close all other application
 * clean up git repo
 * delete application from integration cluster
@@ -29,22 +30,19 @@ code .
 
 ## Modify the Frontend Application
 * In the VSCODE, Go to Terminal -> New Terminal
-* In the terminal, enter oc login -u developer -p developer https://api.crc.testing:6443
-* Run: oc new-project quarkusbackend
-* Run: ./gap deploy
-* Run: oc cancel-build bc/angularfrontend
-* Run: oc cancel-build bc/angularfrontend-welcome
 * cp ~/ocp4-examples/rhte2019/index.html src/
 * cp ~/ocp4-examples/rhte2019/app.component.html src/app/
 * Remove line templateUrl: './app.component.html', from src/app/app.component.ts
 * Git commit via VSCODE
-* oc start-build angularfrontend
+* In the terminal, enter oc login -u developer -p developer https://api.crc.testing:6443
+* Run: oc new-project quarkusbackend
+* Run: ./gap deploy
 * Run: crc console to bring up the OpenShift console --> checking build
 * ***SWitch back to Veer***
 * go the the frontend application http://angularfrontend-quarkusbackend.apps-crc.testing/
 
 ## Moving on to Integration
-* oc login -u user1 https://api.ocp4.home.ocpcloud.com:6443/
+* oc login -u user1 https://api.ocp4.home.ocpcloud.com:6443/ or oc login -u user1 https://api.rhte2019.sc.osecloud.com:6443
 * oc project quarkusbackend
 * cd /Users/shannachan/RHTE/pipeline
 * create all my application object and pipeline objects
@@ -59,5 +57,6 @@ tkn pipeline list
 ```
 * tkn pipeline start angularfrontend-deploy-pipeline -r app-git=angularfrontend-git -r app-image=angularfrontend-image -s pipeline
 * tkn pipeline list
+* https://devconsole.apps.ocp4.home.ocpcloud.com/topology/ns/quarkusbackend
 * ***SWitch back to Veer***
 * go to http://angularfrontend-quarkusbackend.apps.ocp4.home.ocpcloud.com/
