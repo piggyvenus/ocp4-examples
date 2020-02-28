@@ -1,4 +1,4 @@
-## Test OCP 4.3 + OSSM 1.0 - how to secure the ingress traffice
+## OCP 4.3 + OSSM 1.0 - how to secure the ingress traffic
 
 
 
